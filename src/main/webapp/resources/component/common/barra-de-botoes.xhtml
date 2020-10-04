@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+	<h:body>
+		<composite:interface>
+ 			<composite:attribute name="actionSalvar" method-signature="void action()" 
+ 				displayName="Action que será executado ao executar no botão salvar"/>
+ 			<composite:attribute name="updateSalvar" type="String" default="@this :messages"
+ 				displayName="Componentes que sofrerão update quando o botão salvar for acionado"/>
+ 			<composite:attribute name="processSalvar" type="String" default="@form"
+ 				displayName="Componentes que serão processados quando o botão salvar for acionado"/>
+ 				
+ 			<composite:attribute name="actionNovo"   method-signature="void action()" displayName="Action que será executado ao executar no botão novo"/>
+ 			<composite:attribute name="updateNovo" type="String" default="@form"
+ 				displayName="Componentes que sofrerão update quando o botão novo for acionado"/>
+ 			<composite:attribute name="processNovo" type="String" default="@this"
+ 				displayName="Componentes que serão processados quando o botão novo for acionado"/>
+ 			
+ 			<composite:attribute name="actionVoltar" method-signature="void action()" displayName="Action que será executado ao executar no botão voltar"/>
+ 			<composite:attribute name="updateVoltar" type="String" default="@this"
+ 				displayName="Componentes que sofrerão update quando o botão voltar for acionado"/>
+ 			<composite:attribute name="processVoltar" type="String" default="@this"
+ 				displayName="Componentes que serão processados quando o botão voltar for acionado"/>
+ 				
+ 			<composite:attribute name="actionExcluir" method-signature="void action()" displayName="Action que será executado ao executar no botão excluir"/>
+ 			<composite:attribute name="updateExcluir" type="String" default="@this :messages"
+ 				displayName="Componentes que sofrerão update quando o botão exluir for acionado"/>
+ 			<composite:attribute name="processExcluir" type="String" default="@this"
+ 				displayName="Componentes que serão processados quando o botão excluir for acionado"/>
+ 			
+		</composite:interface>
+		<composite:implementation>
+			<div class="barraBotoes">
+				<p:commandButton value="#{msg['botao.excluir']}" icon="fa fa-fw fa-remove"   styleClass="btnBarraBotaoes" 
+					process="#{cc.attrs.processExcluir}" update="#{cc.attrs.updateExcluir}"
+					rendered="##{cc.attrs.actionExcluir != null}">
+					 <p:confirm header="#{msg['janela.confirmacao']}" message="#{msg['janela.confirmacao.exclusao']}" icon="pi pi-exclamation-triangle" />
+				</p:commandButton>
+					
+				<p:commandButton value="#{msg['botao.salvar']}"  icon="fa fa-fw fa-save"     styleClass="btnBarraBotaoes"
+					process="#{cc.attrs.processSalvar}" update="#{cc.attrs.updateSalvar}"
+					rendered="##{cc.attrs.actionSalvar != null}"/>
+					
+				<p:commandButton value="#{msg['botao.novo']}"  icon="fa fa-fw fa-save"     styleClass="btnBarraBotaoes"
+					process="#{cc.attrs.processNovo}" update="#{cc.attrs.updateNovo}"
+					rendered="##{cc.attrs.actionNovo != null}"/>
+					
+				<p:commandButton value="#{msg['botao.voltar']}"  icon="fa fa-fw fa-backward" styleClass="btnBarraBotaoes"
+					process="#{cc.attrs.processVoltar}" update="#{cc.attrs.updateVoltar}"
+					rendered="##{cc.attrs.actionVoltar != null}"/>
+					
+	    	</div>
+		</composite:implementation>
+	</h:body>
+</html>	

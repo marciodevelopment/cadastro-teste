@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:co="http://java.sun.com/jsf/composite/component/common"
+	template="/templates/template-cadastro.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<p:outputPanel style="margin:20px;">
+				<div class="ui-fluid p-formgrid p-grid">
+					<div class="p-field ui-g-3 ui-md-3 ui-lg-2">
+						<p:outputLabel value="#{msg['pessoaFisica.id']}:" />
+						<p:inputText readonly="true"
+							value="#{pessoaFisicaBean.pessoaFisica.id}" />
+					</div>
+
+					<div class="p-field ui-g-9 ui-md-9 ui-lg-10">
+						<p:outputLabel value="#{msg['pessoaFisica.nome']}:" />
+						<p:inputText value="#{pessoaFisicaBean.pessoaFisica.nome}"
+							maxlength="255" />
+					</div>
+
+					<div class="p-field ui-g-12 ui-md-3 ui-lg-3">
+						<p:outputLabel value="#{msg['pessoaFisica.cpf']}:" />
+						<p:inputMask value="#{pessoaFisicaBean.pessoaFisica.cpf}"
+							mask="999-999-999-99" />
+					</div>
+
+					<div class="p-field ui-g-12 ui-md-3 ui-lg-3">
+						<p:outputLabel value="#{msg['pessoaFisica.dataNascimento']}:" />
+						<p:calendar
+							value="#{pessoaFisicaBean.pessoaFisica.dataNascimento}"
+							pattern="dd-MM-yyyy" mask="true" />
+					</div>
+
+					<div class="p-field ui-g-12 ui-md-3 ui-lg-3">
+						<p:outputLabel value="#{msg['pessoaFisica.numeroTelefone']}:" />
+						<p:inputMask value="#{pessoaFisicaBean.pessoaFisica.telefone}"
+							mask="(99) 9?99999999" slotChar="" autoClear="false" />
+					</div>
+					<div class="p-field ui-g-12 ui-md-3 ui-lg-3">
+						<p:outputLabel value="#{msg['pessoaFisica.email']}:" />
+						<p:inputText value="#{pessoaFisicaBean.pessoaFisica.email}"
+							maxlength="64" />
+					</div>
+				</div>
+			</p:outputPanel>
+			
+			<co:barra-de-botoes actionExcluir="#{pessoaFisicaBean.clickExcluir}"
+				actionVoltar="#{pessoaFisicaBean.clickVoltar()}"
+				actionNovo="#{pessoaFisicaBean.clickNovo()}"
+				actionSalvar="#{pessoaFisicaBean.clickSalvar()}"
+			/>
+		</h:form>
+	</ui:define>
+</ui:composition>
