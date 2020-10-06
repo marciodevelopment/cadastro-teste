@@ -10,7 +10,7 @@ import javax.faces.context.FacesContext;
 
 
 public class MessageUtil {
-	private static final String properties = "application";
+	private static final String PROPERTIES = "application";
 
 	private MessageUtil() {}
 
@@ -20,7 +20,7 @@ public class MessageUtil {
 
 	private static String getMessageResource(String key, String... params) {
 		Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
-		ResourceBundle bundle = ResourceBundle.getBundle(properties, locale);
+		ResourceBundle bundle = ResourceBundle.getBundle(PROPERTIES, locale);
 		try {
 			String text = bundle.getString(key);
 			if (params == null || params.length == 0) {

@@ -1,16 +1,14 @@
 package br.com.avaliacao.cadastro.common.jpa;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-public class QueryBuilder implements Serializable {
-	private static final long serialVersionUID = 1363235003896426817L;
+public class QueryBuilder {
 	private StringBuilder hql = new StringBuilder();
-	private Map<String, Object> parameters = new HashMap<String, Object>(1);
+	private Map<String, Object> parameters = new HashMap<>(1);
 	private String namedQuery;
 	private Integer firstResult;
 	private Integer maxResult;
@@ -41,7 +39,8 @@ public class QueryBuilder implements Serializable {
 		final Query query = createQuery(entityManager);
 		addFirstResult(query);
 		addMaxResult(query);
-		this.parameters.forEach((name, value) -> query.setParameter(name, value));
+		this
+		.parameters.forEach((name, value) -> query.setParameter(name, value));
 		return query;		
 	}
 

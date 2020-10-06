@@ -2,6 +2,8 @@ package br.com.avaliacao.cadastro.entity.pessoa;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Set;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -62,7 +64,8 @@ class PessoaJuridicaTest {
 	@Test
 	void naoDevePermitirManipularTelefones() {
 		PessoaJuridicaEntity pessoa = new PessoaJuridicaEntity();
-		Assertions.assertThrows(UnsupportedOperationException.class, () -> pessoa.getTelefones().clear());
+		Set<String> telefones = pessoa.getTelefones();
+		Assertions.assertThrows(UnsupportedOperationException.class, () -> telefones.clear());
 	}
 
 	@Test

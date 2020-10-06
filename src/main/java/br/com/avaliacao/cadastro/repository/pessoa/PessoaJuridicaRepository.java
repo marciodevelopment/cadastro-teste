@@ -10,7 +10,7 @@ import br.com.avaliacao.cadastro.common.util.CpfCnpjUtil;
 import br.com.avaliacao.cadastro.entity.pessoa.PessoaJuridicaEntity;
 import br.com.avaliacao.cadastro.repository.AbstractEntityRepository;
 
-public class PessoaJuridicaRepository extends AbstractEntityRepository<PessoaJuridicaEntity, Integer> implements Serializable {
+public class PessoaJuridicaRepository extends AbstractEntityRepository<PessoaJuridicaEntity> implements Serializable {
 	private static final long serialVersionUID = -7841578180329457132L;
 
 	@Override

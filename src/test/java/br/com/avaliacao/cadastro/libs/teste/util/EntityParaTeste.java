@@ -2,7 +2,7 @@ package br.com.avaliacao.cadastro.libs.teste.util;
 
 import javax.persistence.Id;
 
-public class EntityTest {
+public class EntityParaTeste {
 
 	@Id
 	private int id;

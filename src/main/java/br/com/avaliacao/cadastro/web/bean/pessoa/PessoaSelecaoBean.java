@@ -1,6 +1,5 @@
 package br.com.avaliacao.cadastro.web.bean.pessoa;
 
-import java.io.IOException;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
@@ -31,7 +30,7 @@ public class PessoaSelecaoBean implements Serializable {
 		pessoasSelecao = new PessoaSelecaoLazyDataModel(pessoaRepository);
 	}
 
-	public void clickSelecaoPessoa(PessoaSelecaoDto pessoaSelecao) throws IOException {
+	public void clickSelecaoPessoa(PessoaSelecaoDto pessoaSelecao) {
 		if (pessoaSelecao.ehPessoaFisica()) {
 			PessoaFisicaBean.navegarParaTela(pessoaSelecao.getId());
 			return;
@@ -43,11 +42,11 @@ public class PessoaSelecaoBean implements Serializable {
 		PrimeFaces.current().executeScript("PF('dlgNovaPessoa').show();");
 	}
 	
-	public void clickNovaPessoaJuridica() throws IOException {
+	public void clickNovaPessoaJuridica() {
 		PessoaJuridicaBean.navegarParaTela();
 	}
 	
-	public void clickNovaPessoaFisica() throws IOException {
+	public void clickNovaPessoaFisica() {
 		PessoaFisicaBean.navegarParaTela();
 	}
 	

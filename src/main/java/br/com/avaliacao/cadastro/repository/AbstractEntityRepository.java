@@ -1,6 +1,5 @@
 package br.com.avaliacao.cadastro.repository;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +12,7 @@ import br.com.avaliacao.cadastro.common.jpa.QueryBuilder;
 import br.com.avaliacao.cadastro.entity.BaseEntity;
 
 @Named
-public abstract class AbstractEntityRepository<E extends BaseEntity, PK extends Serializable> { 
+public abstract class AbstractEntityRepository<E extends BaseEntity> { 
 	@PersistenceContext(unitName = "puCadastro")
 	private EntityManager entityManager;
 	
