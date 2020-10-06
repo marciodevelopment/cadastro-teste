@@ -66,5 +66,21 @@ class TelefoneUtilTest {
 		boolean expected = false;
 		assertEquals(expected, actual);
 	}
+	
+	@Test
+	void deveFormatarCelular() {
+		String actual = TelefoneUtil.formatar("41996357686");
+		String expected = "(41) 996357686";
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void deveFormatarFixo() {
+		String actual = TelefoneUtil.formatar("4199635768");
+		String expected = "(41) 99635768";
+		assertEquals(expected, actual);
+	}
+	
+	
 
 }

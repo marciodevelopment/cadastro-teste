@@ -27,6 +27,9 @@ public class PessoaSelecaoDto implements Serializable {
 		this.id = id;
 	}
 	
+	public boolean ehPessoaFisica() {
+		return this.nome != null && this.cpf != null;
+	}
 	
 	public String getNome() {
 		return nome;

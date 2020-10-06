@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class NumeroTelefoneContraintTest {
+class NumeroTelefoneConstraintTest {
 
-	NumeroTelefoneContraint validador = new NumeroTelefoneContraint();
+	NumeroTelefoneConstraint validador = new NumeroTelefoneConstraint();
 
 
 	@Test
@@ -17,9 +17,9 @@ class NumeroTelefoneContraintTest {
 	}
 
 	@Test
-	void deveRetornarFalseParaTelefoneVazio() {
+	void deveRetornarTrueParaTelefoneVazio() {
 		boolean actual = validador.isValid("", null);
-		boolean expected = false;
+		boolean expected = true;
 		assertEquals(expected, actual);
 	}
 }

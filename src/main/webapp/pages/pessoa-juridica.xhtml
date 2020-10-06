@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:co="http://java.sun.com/jsf/composite/component/common"
+	template="/templates/template-cadastro.xhtml">
+	<ui:define name="content">
+		<h:form id="frmPessoaJuridica">
+			<p:outputPanel style="margin:20px;">
+				<div class="ui-fluid p-formgrid p-grid">
+					<div class="p-field ui-g-12 ui-md-4 ui-lg-3">
+						<p:outputLabel value="#{msg['pessoaJuridica.id']}:" />
+						<p:inputText readonly="true"
+							value="#{pessoaJuridicaBean.pessoaJuridica.id}" />
+					</div>
+					<div class="p-field ui-g-12 ui-md-8 ui-lg-9">
+						<p:outputLabel value="#{msg['pessoaJuridica.razaoSocial']}:" />
+						<p:inputText value="#{pessoaJuridicaBean.pessoaJuridica.razaoSocial}"
+							maxlength="255" />
+					</div>
+					<div class="p-field ui-g-12 ui-md-4 ui-lg-3">
+						<p:outputLabel value="#{msg['pessoaJuridica.cnpj']}:" />
+						<p:inputMask value="#{pessoaJuridicaBean.pessoaJuridica.cnpj}" converter="cpfCnpjConverter"
+							mask="99.999.999/9999-99" />
+					</div>
+					<div class="p-field ui-g-12 ui-md-8 ui-lg-6">
+						<p:outputLabel value="#{msg['pessoaJuridica.nomefantasia']}:" />
+						<p:inputText value="#{pessoaJuridicaBean.pessoaJuridica.nomeFantasia}"
+							maxlength="255" />
+					</div>
+					<div class="p-field ui-g-12 ui-md-12 ui-lg-3">
+						<p:outputLabel value="#{msg['pessoaJuridica.site']}:" />
+						<p:inputText value="#{pessoaJuridicaBean.pessoaJuridica.site}"/>
+					</div>
+					<div class="p-field ui-g-12 ui-md-11 ui-lg-3">
+						<p:outputLabel value="#{msg['pessoaJuridica.telefone']}:" />
+						<p:inputMask value="#{pessoaJuridicaBean.nrTelefone}" id="nrTelefone"
+							mask="(99) 9?99999999" slotChar="" autoClear="false" converter="telefoneConverter"/>
+					</div>
+					<div class="ui-g-1 ui-md-1 ui-lg-9">
+						<br/>
+						<p:commandButton icon="fa fa-fw fa-plus"
+							title="Adicoinar novo telefone"
+							action="#{pessoaJuridicaBean.adicionarTelefone()}"
+							process="@this frmPessoaJuridica:nrTelefone"
+							update="frmPessoaJuridica:dtTelefone frmPessoaJuridica:nrTelefone"/>
+					</div>
+					
+					<div class="p-field ui-g-12 ui-md-8 ui-lg-4">
+						<p:dataTable var="telefone" id="dtTelefone"
+							value="#{pessoaJuridicaBean.pessoaJuridica.telefones}"
+							reflow="true" scrollable="true" scrollHeight="195" 
+							emptyMessage="#{msg['table.emptyMessage']}">
+						    <p:column headerText="#{msg['pessoaJuridica.telefones']}">
+						        <h:outputText value="#{telefone}" converter="telefoneConverter"/>
+						    </p:column>
+						    <p:column width="30">
+						       <p:commandButton process="@this" update="frmPessoaJuridica:dtTelefone" icon="fa fa-fw fa-minus" title="Remover telefone"
+						       			actionListener="#{pessoaJuridicaBean.clickExcluirTelefone(telefone)}">
+							          <p:confirm header="#{msg['janela.confirmacao']}" message="#{msg['janela.confirmacao.exclusao']}" icon="pi pi-exclamation-triangle" />
+							    </p:commandButton>
+						    </p:column>
+						</p:dataTable>    
+					</div>
+				</div>
+			</p:outputPanel>
+			
+			<co:barra-de-botoes 
+				actionExcluir="#{pessoaJuridicaBean.clickExcluir()}"
+				actionVoltar="#{pessoaJuridicaBean.clickVoltar()}"
+				renderBotaoExcluir="#{pessoaJuridicaBean.renderBotaoNovo}"
+				actionSalvar="#{pessoaJuridicaBean.clickSalvar()}"
+			/>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

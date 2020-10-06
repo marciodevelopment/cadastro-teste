@@ -5,27 +5,27 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("deprecation")
+import br.com.avaliacao.cadastro.common.exception.BusinessRunTimeException;
+
 class PessoaJuridicaTest {
 
 	@Test
 	void naoDeveAdicionarTelefoneInvalido() {
 		PessoaJuridicaEntity pessoa = new PessoaJuridicaEntity();
-		Assertions.assertThrows(IllegalArgumentException.class, () -> pessoa.adicionarTelefone("1231"));
+		Assertions.assertThrows(BusinessRunTimeException.class, () -> pessoa.adicionarTelefone("1231"));
 		
 	}
 	
 	@Test
 	void naoDeveAdicionarTelefoneVazio() {
 		PessoaJuridicaEntity pessoa = new PessoaJuridicaEntity();
-		Assertions.assertThrows(IllegalArgumentException.class, () -> pessoa.adicionarTelefone(""));
-		
+		Assertions.assertThrows(BusinessRunTimeException.class, () -> pessoa.adicionarTelefone(""));
 	}
 	
 	@Test
 	void naoDeveAdicionarTelefoneNulo() {
 		PessoaJuridicaEntity pessoa = new PessoaJuridicaEntity();
-		Assertions.assertThrows(IllegalArgumentException.class, () -> pessoa.adicionarTelefone(null));
+		Assertions.assertThrows(BusinessRunTimeException.class, () -> pessoa.adicionarTelefone(null));
 		
 	}
 	
@@ -62,9 +62,24 @@ class PessoaJuridicaTest {
 	@Test
 	void naoDevePermitirManipularTelefones() {
 		PessoaJuridicaEntity pessoa = new PessoaJuridicaEntity();
-		String nrTelefone = "41996357686";
-		pessoa.adicionarTelefone(nrTelefone);
 		Assertions.assertThrows(UnsupportedOperationException.class, () -> pessoa.getTelefones().clear());
 	}
 
+	@Test
+	void deveOcorrerErroAoConsistirTelefonesVazios() {
+		PessoaJuridicaEntity pessoa = new PessoaJuridicaEntity();
+		Assertions.assertThrows(BusinessRunTimeException.class, () -> pessoa.consistirTelefonesAntesDeSalvar());
+	}
+	
+	@Test
+	void naoDeveOcorrerErroAoConsistirTelefonesVazios() {
+		PessoaJuridicaEntity pessoa = new PessoaJuridicaEntity();
+		String nrTelefone = "41996357686";
+		pessoa.adicionarTelefone(nrTelefone);
+		pessoa.consistirTelefonesAntesDeSalvar();
+		int expected = 1;
+		int actual = pessoa.getTelefones().size();
+		assertEquals(expected, actual);
+	}
+	
 }

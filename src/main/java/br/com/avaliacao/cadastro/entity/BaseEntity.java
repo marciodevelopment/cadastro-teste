@@ -11,10 +11,14 @@ public abstract class BaseEntity implements Serializable {
 	private static final long serialVersionUID = 584422402102788202L;
 
 	public boolean isNew() {
+		return getPk() == null;
+	}
+	
+	public Integer getPk() { 
 		try {
 			Field field = FieldUtils.
 					getFieldsListWithAnnotation(this.getClass(), javax.persistence.Id.class).get(0);
-			return FieldUtils.readField(field, this, true) == null;
+			return (Integer) FieldUtils.readField(field, this, true);
 		} catch (IllegalAccessException e) {
 			throw new ApplicationRunTimeException(e);
 		}

@@ -2,9 +2,9 @@ package br.com.avaliacao.cadastro.repository.pessoa;
 
 import java.io.Serializable;
 
-import javax.persistence.EntityExistsException;
 import javax.transaction.Transactional;
 
+import br.com.avaliacao.cadastro.common.exception.BusinessRunTimeException;
 import br.com.avaliacao.cadastro.common.jpa.QueryBuilder;
 import br.com.avaliacao.cadastro.common.util.CpfCnpjUtil;
 import br.com.avaliacao.cadastro.entity.pessoa.PessoaFisicaEntity;
@@ -22,14 +22,14 @@ public class PessoaFisicaRepository extends AbstractEntityRepository<PessoaFisic
 	@Transactional
 	public PessoaFisicaEntity save(PessoaFisicaEntity pessoaFisica) {
 		if (existePessoaCadastradaComMesmoCpf(pessoaFisica)) {
-			throw new EntityExistsException("Pessoa não foi salva. Já existe uma Pessoa cadastrada com o CPF " + CpfCnpjUtil.formatar(pessoaFisica.getCpf()));
+			throw new BusinessRunTimeException("pessoa.pessoaNaoFoiSalvaJaExisteUmaPessoaCadastradaComCPF", CpfCnpjUtil.formatar(pessoaFisica.getCpf()));
 		}
 		return super.save(pessoaFisica);
 	}
 
 	private boolean existePessoaCadastradaComMesmoCpf(PessoaFisicaEntity pessoaFisica) {
 		return pessoaFisica.getId() == null && countPorCpf(pessoaFisica.getCpf()) > 0 ||
-				pessoaFisica.getId() != null && countPorCpfComExcluidaAPessoa(pessoaFisica) > 0;
+				pessoaFisica.getId() != null && countPorCpfExcluidaAPessoa(pessoaFisica) > 0;
 	}
 	
 	public long countPorCpf(String cpf) {
@@ -40,7 +40,7 @@ public class PessoaFisicaRepository extends AbstractEntityRepository<PessoaFisic
 		return super.count(queryBuilder);
 	}
 	
-	public long countPorCpfComExcluidaAPessoa(PessoaFisicaEntity pessoaFisica) {
+	public long countPorCpfExcluidaAPessoa(PessoaFisicaEntity pessoaFisica) {
 		QueryBuilder queryBuilder = new QueryBuilder();
 		queryBuilder
 			.addNamedQuery("PessoaFisica.countPorCpfExcluidaAPessoa")

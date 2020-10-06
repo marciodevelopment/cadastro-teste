@@ -7,34 +7,37 @@
 
 <h:head>
 	<title>Cadastro</title>
-	
-	<h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/all.min-jsf.css" />
-	<h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" />
-	<h:outputStylesheet library="css"  name="cadastro.css" />
+
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/5.12.0/css/all.min-jsf.css" />
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" />
+	<h:outputStylesheet library="css" name="cadastro.css" />
 </h:head>
 
 <h:body>
-	<p:growl id="messages" life="10000" showDetail="true" sticky="false" escape="false" />
-	<div id="page">
-		<div id="header">
+	<p:growl  id="messages" life="5000" showDetail="true" sticky="false" escape="false" redisplay="false"/>
+		
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="#{msg['janela.opcao.sim']}" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+		<p:commandButton value="#{msg['janela.opcao.nao']}" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+	</p:confirmDialog>
+
+	<div class="container">
+		<div class="header">
 			<ui:insert name="header">
 				<ui:include src="/templates/menu-superior.xhtml" />
 			</ui:insert>
 		</div>
-		
-		<div id="content">
+		<div class="content">
 			<ui:insert name="content">
-				
 			</ui:insert>
 		</div>
-
-		<div id="footer">
+		<div class="footer">
 			<ui:insert name="footer">
 				<ui:include src="/templates/footer.xhtml" />
 			</ui:insert>
 		</div>
-
-	</div>
-
+	</div>	
 </h:body>
 </html>

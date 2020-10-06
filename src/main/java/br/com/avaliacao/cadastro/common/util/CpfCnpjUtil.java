@@ -6,6 +6,8 @@ import javax.swing.text.MaskFormatter;
 
 import org.apache.commons.lang3.StringUtils;
 
+import br.com.avaliacao.cadastro.common.exception.ApplicationRunTimeException;
+
 public class CpfCnpjUtil {
 	private static final int QTDE_CARACTERES_CPF = 11;
 	private static final int  QTDE_CARACTERES_CNPJ = 14;
@@ -15,7 +17,7 @@ public class CpfCnpjUtil {
 	
 	public static String retirarFormatacao(String cpfCnpj) {
 		if (StringUtils.isEmpty(cpfCnpj)) {
-			return cpfCnpj;
+			return null;
 		}
 		return cpfCnpj.replaceAll("[-./]", "").trim();
 	}
@@ -34,7 +36,7 @@ public class CpfCnpjUtil {
 			}
 			return formatarCpf(cpfCnpjSemFormatacao, mask);
 		} catch (ParseException e) {
-			throw new RuntimeException(e);
+			throw new ApplicationRunTimeException(e);
 		}
 	}
 

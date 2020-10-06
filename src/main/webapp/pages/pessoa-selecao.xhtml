@@ -5,11 +5,10 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:co="http://java.sun.com/jsf/composite/component/common"
 	template="/templates/template-cadastro.xhtml">
 	<ui:define name="content">
-
 		<h:form>
-
 			<p:dataTable var="pessoa" value="#{pessoaSelecaoBean.pessoasSelecao}"
 				paginator="true" id="pessoa" lazy="true" reflow="true"
 				rows="#{msg['table.default.rows']}"
@@ -18,28 +17,47 @@
 				rowsPerPageTemplate="#{msg['table.rowsPerPageTemplate']}"
 				paginatorPosition="#{msg['table.paginatorPosition']}"
 				emptyMessage="#{msg['table.emptyMessage']}">
-				<p:column headerText="Nome">
+				
+				<p:column headerText="#{msg['pessoaFisica.nome']}" filterBy="#{pessoa.nome}" filterMatchMode="startsWith">
 					<p:outputLabel value="#{pessoa.nome}" />
 				</p:column>
-
-				<p:column headerText="Razão Social">
+			
+				<p:column headerText="#{msg['pessoaJuridica.razaoSocial']}" filterBy="#{pessoa.razaoSocial}" filterMatchMode="startsWith">
 					<p:outputLabel value="#{pessoa.razaoSocial}" />
 				</p:column>
-
-				<p:column headerText="Nome Fantasia">
+			
+				<p:column headerText="#{msg['pessoaJuridica.nomefantasia']}" filterBy="#{pessoa.nomeFantasia}" filterMatchMode="startsWith">
 					<p:outputLabel value="#{pessoa.nomeFantasia}" />
 				</p:column>
-
-				<p:column headerText="CPF">
+			
+				<p:column headerText="#{msg['pessoaFisica.cpf']}" filterBy="#{pessoa.cpf}" filterMatchMode="startsWith"> 
 					<p:outputLabel value="#{pessoa.cpf}" converter="cpfCnpjConverter"/>
 				</p:column>
-
-				<p:column headerText="CNPJ">
+			
+				<p:column headerText="#{msg['pessoaJuridica.cnpj']}" filterBy="#{pessoa.cnpj}" filterMatchMode="startsWith"> 
 					<p:outputLabel value="#{pessoa.cnpj}" converter="cpfCnpjConverter"/>
 				</p:column>
-
+				
+				<p:column width="35">
+					<p:commandButton icon="fa fa-fw fa-edit" process="@this" update="@this" action="#{pessoaSelecaoBean.clickSelecaoPessoa(pessoa)}"/>
+				</p:column>
+			
 			</p:dataTable>
-
+			
+			<p:dialog header="#{msg['pessoa.tituloDialogNovaPessoa']}" widgetVar="dlgNovaPessoa" resizable="false">
+				<h:panelGrid columns="2" cellpadding="5">
+				    <h:outputLabel value="#{msg['pessoa.questionamentoDialogNovaPessoa']}"/>
+				    <f:facet name="footer">
+				        <p:commandButton value="#{msg['pessoa.pessoaFisica']}" update="@this" process="@this" 
+				        	action="#{pessoaSelecaoBean.clickNovaPessoaFisica()}"/>
+				        <p:commandButton value="#{msg['pessoa.pessoaJuridica']}" update="@this" process="@this" 
+				        	action="#{pessoaSelecaoBean.clickNovaPessoaJuridica()}"/>
+				    </f:facet>  
+				</h:panelGrid>
+			</p:dialog>    
+			
+			<co:barra-de-botoes updateNovo="@this" 
+				actionNovo="#{pessoaSelecaoBean.clickNovo()}"/>
 		</h:form>
 
 	</ui:define>

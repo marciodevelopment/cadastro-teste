@@ -25,7 +25,7 @@
 
 					<div class="p-field ui-g-12 ui-md-3 ui-lg-3">
 						<p:outputLabel value="#{msg['pessoaFisica.cpf']}:" />
-						<p:inputMask value="#{pessoaFisicaBean.pessoaFisica.cpf}"
+						<p:inputMask value="#{pessoaFisicaBean.pessoaFisica.cpf}" converter="cpfCnpjConverter"
 							mask="999-999-999-99" />
 					</div>
 
@@ -33,25 +33,25 @@
 						<p:outputLabel value="#{msg['pessoaFisica.dataNascimento']}:" />
 						<p:calendar
 							value="#{pessoaFisicaBean.pessoaFisica.dataNascimento}"
-							pattern="dd-MM-yyyy" mask="true" />
+							pattern="dd/MM/yyyy" mask="true" />
 					</div>
 
 					<div class="p-field ui-g-12 ui-md-3 ui-lg-3">
 						<p:outputLabel value="#{msg['pessoaFisica.numeroTelefone']}:" />
 						<p:inputMask value="#{pessoaFisicaBean.pessoaFisica.telefone}"
-							mask="(99) 9?99999999" slotChar="" autoClear="false" />
+							mask="(99) 9?99999999" slotChar="" autoClear="false" converter="telefoneConverter"/>
 					</div>
 					<div class="p-field ui-g-12 ui-md-3 ui-lg-3">
 						<p:outputLabel value="#{msg['pessoaFisica.email']}:" />
 						<p:inputText value="#{pessoaFisicaBean.pessoaFisica.email}"
 							maxlength="64" />
-					</div>
+					</div> 
 				</div>
 			</p:outputPanel>
-			
-			<co:barra-de-botoes actionExcluir="#{pessoaFisicaBean.clickExcluir}"
+			<co:barra-de-botoes 
+				actionExcluir="#{pessoaFisicaBean.clickExcluir()}"
+				renderBotaoExcluir="#{pessoaFisicaBean.renderBotaoNovo}"				
 				actionVoltar="#{pessoaFisicaBean.clickVoltar()}"
-				actionNovo="#{pessoaFisicaBean.clickNovo()}"
 				actionSalvar="#{pessoaFisicaBean.clickSalvar()}"
 			/>
 		</h:form>
