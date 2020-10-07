@@ -67,22 +67,4 @@ class PessoaJuridicaTest {
 		Set<String> telefones = pessoa.getTelefones();
 		Assertions.assertThrows(UnsupportedOperationException.class, () -> telefones.clear());
 	}
-
-	@Test
-	void deveOcorrerErroAoConsistirTelefonesVazios() {
-		PessoaJuridicaEntity pessoa = new PessoaJuridicaEntity();
-		Assertions.assertThrows(BusinessRunTimeException.class, () -> pessoa.consistirTelefonesAntesDeSalvar());
-	}
-	
-	@Test
-	void naoDeveOcorrerErroAoConsistirTelefonesVazios() {
-		PessoaJuridicaEntity pessoa = new PessoaJuridicaEntity();
-		String nrTelefone = "41996357686";
-		pessoa.adicionarTelefone(nrTelefone);
-		pessoa.consistirTelefonesAntesDeSalvar();
-		int expected = 1;
-		int actual = pessoa.getTelefones().size();
-		assertEquals(expected, actual);
-	}
-	
 }

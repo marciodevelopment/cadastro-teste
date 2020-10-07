@@ -13,7 +13,7 @@ import br.com.avaliacao.cadastro.entity.BaseEntity;
 
 @Named
 public abstract class AbstractEntityRepository<E extends BaseEntity> { 
-	@PersistenceContext(unitName = "puCadastro")
+	@PersistenceContext(unitName = "cadastro")
 	private EntityManager entityManager;
 	
 	protected abstract Class<E> getEntityClass();
