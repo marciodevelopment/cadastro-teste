@@ -25,7 +25,7 @@ import br.com.avaliacao.cadastro.common.util.TelefoneUtil;
 
 
 @NamedQuery(name = "PessoaJuridica.countPorCnpjExcluidaAPessoa", 
-	query = "select count(pj.id) from PessoaJuridicaEntity pj where pj.cnpj = :cnpj and pj <> :pessoaJuridica ")
+	query = "select count(pj.id) from PessoaJuridicaEntity pj where pj.cnpj = :cnpj and pj <> :pessoaJuridicaExcluidaDaPesquisa ")
 @NamedQuery(name = "PessoaJuridica.countPorCnpj", 
 	query = "select count(pj.id) from PessoaJuridicaEntity pj where pj.cnpj = :cnpj ")
 @NamedQuery(name = "PessoaJuridica.buscaPessoaComTelefonesPorId", 
@@ -51,7 +51,7 @@ public class PessoaJuridicaEntity extends PessoaEntity implements Serializable {
 	@ElementCollection(fetch = FetchType.LAZY, targetClass = String.class)
 	@CollectionTable(name="PessoaJuridicaTelefone", joinColumns = @JoinColumn(name = "idPessoaJuridica"))
 	@Column(name="telefone")
-	private Set<String> telefones = new HashSet<>(1);
+	private Set<String> telefones;
 	
 	@URL
 	@Size(message = "site", max = 255)
@@ -59,6 +59,8 @@ public class PessoaJuridicaEntity extends PessoaEntity implements Serializable {
 	
 	public boolean adicionarTelefone(String nrTelefone) {
 		AssertArgument.isTrue(TelefoneUtil.numeroTelefoneValido(nrTelefone), "pessoaJuridica.numeroDeTelefoneInvalido");
+		if (telefones == null)
+			telefones = new HashSet<>();
 		return telefones.add(TelefoneUtil.retirarFormatacao(nrTelefone));
 	}
 	
@@ -71,6 +73,9 @@ public class PessoaJuridicaEntity extends PessoaEntity implements Serializable {
 	}
 	
 	public Set<String> getTelefones() {
+		if (telefones == null) {
+			return  Collections.unmodifiableSet(new HashSet<>());
+		}
 		return Collections.unmodifiableSet(this.telefones);
 	}
 

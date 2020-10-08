@@ -7,6 +7,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import br.com.avaliacao.cadastro.common.jpa.QueryBuilder;
 import br.com.avaliacao.cadastro.entity.BaseEntity;
@@ -23,7 +24,7 @@ public abstract class AbstractEntityRepository<E extends BaseEntity> {
 	}
 	
 	@Transactional
-	public E save(E entity) {
+	public E save(@Valid E entity) {
 		if (!entity.isNew()) {
 			return entityManager.merge(entity);
 		}

@@ -3,6 +3,7 @@ package br.com.avaliacao.cadastro.repository.pessoa;
 import java.io.Serializable;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import br.com.avaliacao.cadastro.common.exception.BusinessRunTimeException;
 import br.com.avaliacao.cadastro.common.jpa.QueryBuilder;
@@ -20,7 +21,7 @@ public class PessoaJuridicaRepository extends AbstractEntityRepository<PessoaJur
 	
 	@Override
 	@Transactional
-	public PessoaJuridicaEntity save(PessoaJuridicaEntity pessoaJuridica) {
+	public PessoaJuridicaEntity save(@Valid PessoaJuridicaEntity pessoaJuridica) {
 		if (existePessoaCadastradaComMesmoCnpj(pessoaJuridica)) {
 			throw new BusinessRunTimeException("pessoa.pessoaNaoFoiSalvaJaExisteUmaPessoaCadastradaComCNPJ", CpfCnpjUtil.formatar(pessoaJuridica.getCnpj()));
 		}
@@ -37,7 +38,7 @@ public class PessoaJuridicaRepository extends AbstractEntityRepository<PessoaJur
 		QueryBuilder queryBuilder = new QueryBuilder();
 		queryBuilder
 			.addNamedQuery("PessoaJuridica.countPorCnpj")
-			.addParamenter("cnpj", cnpj);
+			.addParameter("cnpj", cnpj);
 		return super.count(queryBuilder);
 	}
 	
@@ -45,8 +46,8 @@ public class PessoaJuridicaRepository extends AbstractEntityRepository<PessoaJur
 		QueryBuilder queryBuilder = new QueryBuilder();
 		queryBuilder
 			.addNamedQuery("PessoaJuridica.countPorCnpjExcluidaAPessoa")
-			.addParamenter("cnpj", pessoaJuridica.getCnpj())
-			.addParamenter("pessoaJuridica", pessoaJuridica);
+			.addParameter("cnpj", pessoaJuridica.getCnpj())
+			.addParameter("pessoaJuridicaExcluidaDaPesquisa", pessoaJuridica);
 		return super.count(queryBuilder);
 	}
 
@@ -54,7 +55,7 @@ public class PessoaJuridicaRepository extends AbstractEntityRepository<PessoaJur
 		QueryBuilder queryBuilder = new QueryBuilder();
 		queryBuilder
 			.addNamedQuery("PessoaJuridica.buscaPessoaComTelefonesPorId")
-			.addParamenter("id", id);
+			.addParameter("id", id);
 		return super.getSingleResult(queryBuilder);
 	}
 	

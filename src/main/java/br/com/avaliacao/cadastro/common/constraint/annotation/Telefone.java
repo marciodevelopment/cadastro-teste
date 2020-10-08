@@ -10,7 +10,7 @@ import javax.validation.Payload;
 
 import br.com.avaliacao.cadastro.common.constraint.NumeroTelefoneConstraint;
 
-@Target({ ElementType.FIELD, ElementType.PARAMETER })
+@Target({ ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = NumeroTelefoneConstraint.class)
 public @interface Telefone {

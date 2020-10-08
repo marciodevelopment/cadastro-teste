@@ -24,7 +24,7 @@ public class QueryBuilder {
 		return this;
 	}
 
-	public QueryBuilder addParamenter(String name, Object value) {
+	public QueryBuilder addParameter(String name, Object value) {
 		parameters.put(name, value);
 		return this;
 	}

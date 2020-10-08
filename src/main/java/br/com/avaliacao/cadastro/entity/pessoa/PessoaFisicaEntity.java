@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.br.CPF;
@@ -18,7 +18,7 @@ import br.com.avaliacao.cadastro.common.constraint.annotation.Telefone;
 
 
 @NamedQuery(name = "PessoaFisica.countPorCpfExcluidaAPessoa", 
-	query = "select count(pf.id) from PessoaFisicaEntity pf where pf.cpf = :cpf and pf <> :pessoaFisica ")
+	query = "select count(pf.id) from PessoaFisicaEntity pf where pf.cpf = :cpf and pf <> :pessoaFisicaExcluidaDaPesquisa ")
 @NamedQuery(name = "PessoaFisica.countPorCpf", query = "select count(pf.id) from PessoaFisicaEntity pf where pf.cpf = :cpf ")
 @Entity(name = "PessoaFisicaEntity")
 @Table(name = "PessoaFisica")
@@ -34,7 +34,7 @@ public class PessoaFisicaEntity extends PessoaEntity implements Serializable {
 	private String cpf;
 	
 	@NotNull(message = "{datanascimento.notnull}")
-	@Past(message = "{datanascimento.past}")
+	@PastOrPresent(message = "{datanascimento.past}")
 	private LocalDate dataNascimento;
 	
 	@NotBlank(message = "{telefone.notblank}")

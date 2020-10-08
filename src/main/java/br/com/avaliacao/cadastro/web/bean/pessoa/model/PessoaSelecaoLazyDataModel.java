@@ -40,28 +40,29 @@ public class PessoaSelecaoLazyDataModel extends LazyDataModel<PessoaSelecaoDto> 
 
 	@Override
 	public List<PessoaSelecaoDto> load(int pageNumber, int pageSize, Map<String, SortMeta> sortMeta, Map<String, FilterMeta> filterMeta) {
-		QueryFilter queryFilter = criarQueryFilter(filterMeta);
+		Optional<QueryFilter> queryFilter = criarQueryFilter(filterMeta);
 		super.setRowCount(pessoaRepository.countPessoasSelecao(queryFilter).intValue());
 		datasource = pessoaRepository.buscarPessoasSelecao(pageNumber, pageSize, queryFilter);
 		return datasource;
 	}
 	
-	private QueryFilter criarQueryFilter(Map<String, FilterMeta> filterMeta) {
-		Optional<Entry<String, FilterMeta>> filterMetaFiltro = 
+	private Optional<QueryFilter> criarQueryFilter(Map<String, FilterMeta> filterMeta) {
+		Optional<Entry<String, FilterMeta>> filtroUtilizadoPeloUsuario = 
 				filterMeta
 				.entrySet()
 				.stream()
 				.filter(keyValue -> keyValue.getValue().getFilterValue() != null).findFirst();
 		
-		if (filterMetaFiltro.isEmpty()) {
-			return null;
+		if (filtroUtilizadoPeloUsuario.isEmpty()) {
+			return Optional.empty();
 		}
 		
-		FilterMeta filterPrime = filterMetaFiltro.get().getValue();
+		FilterMeta filterPrime = filtroUtilizadoPeloUsuario.get().getValue();
 		boolean isCaseSensitive = filterPrime.getFilterField().equals("cpf") || filterPrime.getFilterField().equals("cnpj"); 
-		return new QueryFilter(filterPrime.getFilterField(), 
+		QueryFilter queryFilter = new QueryFilter(filterPrime.getFilterField(), 
 				filterPrime.getFilterValue(),
 				MatchModelUtil.getMatchModeQueryType(filterPrime.getFilterMatchMode()), 
 				isCaseSensitive);
+		return Optional.of(queryFilter);
 	}
 }

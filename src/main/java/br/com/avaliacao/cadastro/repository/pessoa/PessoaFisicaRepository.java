@@ -36,7 +36,7 @@ public class PessoaFisicaRepository extends AbstractEntityRepository<PessoaFisic
 		QueryBuilder queryBuilder = new QueryBuilder();
 		queryBuilder
 			.addNamedQuery("PessoaFisica.countPorCpf")
-			.addParamenter("cpf", cpf);
+			.addParameter("cpf", cpf);
 		return super.count(queryBuilder);
 	}
 	
@@ -44,8 +44,8 @@ public class PessoaFisicaRepository extends AbstractEntityRepository<PessoaFisic
 		QueryBuilder queryBuilder = new QueryBuilder();
 		queryBuilder
 			.addNamedQuery("PessoaFisica.countPorCpfExcluidaAPessoa")
-			.addParamenter("cpf", pessoaFisica.getCpf())
-			.addParamenter("pessoaFisica", pessoaFisica);
+			.addParameter("cpf", pessoaFisica.getCpf())
+			.addParameter("pessoaFisicaExcluidaDaPesquisa", pessoaFisica);
 		return super.count(queryBuilder);
 	}
 	

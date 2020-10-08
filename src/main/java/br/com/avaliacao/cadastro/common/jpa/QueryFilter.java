@@ -7,7 +7,6 @@ public class QueryFilter {
 	private MatchModeQueryType matchMode;
 	private Object value;
 	private boolean isCaseInsensitive;
-	
 	public QueryFilter(String field, Object value, MatchModeQueryType matchMode, boolean isCaseInsensitive) {
 		super();
 		this.field = field;
@@ -15,6 +14,7 @@ public class QueryFilter {
 		this.value = value;
 		this.isCaseInsensitive = isCaseInsensitive;
 	}
+
 
 	public String getClauseWhere(String aliasEntity) {
 		StringBuilder clause = new StringBuilder();
